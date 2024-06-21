@@ -18,10 +18,10 @@ function SignUp() {
     try {
       const response = await axios.post(`http://localhost:5000/register`, values);
       alert(response.data.message);
-      if (response.data.token) {
+      
         localStorage.setItem('token', response.data.token);
         navigate('/posts');
-      }
+      
     } catch (error) {
       console.error(error);
     }

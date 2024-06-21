@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Form, Button, Card, Badge } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form, Button } from 'react-bootstrap'; // Import Form and Button from react-bootstrap
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
@@ -18,26 +17,26 @@ const Post = () => {
   const fetchPosts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`http://localhost:5000/api/posts`, {
+      const res = await axios.get('http://localhost:5000/api/posts', {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
       setUserId(res.data.userId);
       setPosts(res.data.posts);
+      console.log(res.data.posts);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const createPost = async (event) => {
-    event.preventDefault();
+  const createPost = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post(`http://localhost:5000/api/posts`, { content }, {
+      const res = await axios.post('http://localhost:5000/api/posts', { content }, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
@@ -49,12 +48,11 @@ const Post = () => {
   };
 
   const deletePost = async (id) => {
-    
     try {
       const token = localStorage.getItem('token');
       await axios.delete(`http://localhost:5000/api/posts/${id}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
@@ -69,14 +67,13 @@ const Post = () => {
     setUpdateContent(post.content);
   };
 
-  const updatePost = async (event) => {
-    event.preventDefault();
+  const updatePost = async () => {
     try {
       const token = localStorage.getItem('token');
       const updatedPost = { content: updateContent };
       const res = await axios.put(`http://localhost:5000/api/posts/${postIdToUpdate}`, updatedPost, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
@@ -96,7 +93,7 @@ const Post = () => {
       const token = localStorage.getItem('token');
       await axios.post(`http://localhost:5000/api/posts/${id}/like`, {}, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
@@ -111,7 +108,7 @@ const Post = () => {
       const token = localStorage.getItem('token');
       await axios.post(`http://localhost:5000/api/posts/${id}/comment`, { text: commentContent }, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
@@ -122,8 +119,8 @@ const Post = () => {
   };
 
   return (
-    <Container className="py-4">
-      <h1 className="mb-4">Posts</h1>
+    <div>
+      <h1>Posts</h1>
       <Form onSubmit={createPost} className="mb-4">
         <Form.Group controlId="formPostContent">
           <Form.Control
@@ -138,64 +135,57 @@ const Post = () => {
           Post
         </Button>
       </Form>
-
-      {posts.map(post => (
-        <Card key={post._id} className="mb-4">
-          <Card.Body>
+      <ul>
+        {posts.map(post => (
+          <li key={post._id}>
             {post._id === postIdToUpdate ? (
               <div>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
+                <input
+                  type="text"
                   value={updateContent}
                   onChange={(e) => setUpdateContent(e.target.value)}
                 />
-                <Button variant="success" className="me-2" onClick={updatePost}>
-                  Update
-                </Button>
-                <Button variant="secondary" onClick={() => setPostIdToUpdate('')}>
-                  Cancel
+                <Button onClick={updatePost} variant="primary" type="submit">
+                        Update
                 </Button>
               </div>
             ) : (
               <div>
-                <Card.Text>{post.content}</Card.Text>
-                <Button variant="info" className="me-2" onClick={() => handleUpdateClick(post)}>
-                  Edit
-                </Button>
-                <Button variant="danger" className="me-2" onClick={() => deletePost(post._id)}>
-                  Delete
-                </Button>
-                <Button variant="primary" onClick={() => toggleLike(post._id)}>
+                <p>{post.content}</p>
+                <Button onClick={() => handleUpdateClick(post)}>Edit</Button>
+                <Button onClick={() => deletePost(post._id)}>Delete</Button>
+                <Button onClick={() => toggleLike(post._id)}>
                   {post.likes.some(like => like._id === userId) ? 'Unlike' : 'Like'}
                 </Button>
-                <Badge bg="secondary" className="ms-2">{post.likes.length}</Badge>
-                <Form onSubmit={(e) => { e.preventDefault(); handleComment(post._id, commentContent); }}>
-                  <Form.Control
-                    type="text"
-                    placeholder="Add a comment..."
-                    className="mt-2"
-                    value={commentContent}
-                    onChange={(e) => setCommentContent(e.target.value)}
-                  />
-                  <Button variant="primary" type="submit" className="mt-2">
-                    Comment
-                  </Button>
-                </Form>
-                <ul className="list-unstyled mt-3">
-                  {post.comments.map(comment => (
-                    <li key={comment._id}>
-                      <Card.Text>{comment.text}</Card.Text>
-                      <Card.Text>Comment by: {comment.username}</Card.Text>
-                    </li>
-                  ))}
-                </ul>
+                <p>Likes: {post.likes.length}</p>
+                <div>
+                  <Form onSubmit={(e) => { e.preventDefault(); handleComment(post._id, commentContent); }}>
+                    <Form.Control
+                      type="text"
+                      placeholder="Add a comment..."
+                      className="mt-2"
+                      value={commentContent}
+                      onChange={(e) => setCommentContent(e.target.value)}
+                    />
+                    <Button variant="primary" type="submit" className="mt-2">
+                      Comment
+                    </Button>
+                  </Form>
+                  <ul>
+                    {post.comments.map(comment => (
+                      <li key={comment._id}>
+                        <p>{comment.text}</p>
+                        <p>Comment by: {comment.username}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
-          </Card.Body>
-        </Card>
-      ))}
-    </Container>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
