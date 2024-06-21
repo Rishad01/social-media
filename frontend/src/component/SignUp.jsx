@@ -16,7 +16,7 @@ function SignUp() {
     event.preventDefault();
     console.log('signup');
     try {
-      const response = await axios.post(`${window.location.origin}/register`, values);
+      const response = await axios.post(`http://localhost:5000/register`, values);
       alert(response.data.message);
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
