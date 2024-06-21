@@ -9,7 +9,6 @@ const Post = () => {
   const [postIdToUpdate, setPostIdToUpdate] = useState('');
   const [commentContent, setCommentContent] = useState('');
   const [userId, setUserId] = useState('');
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchPosts();
@@ -35,7 +34,6 @@ const Post = () => {
   const createPost = async () => {
     
     try {
-      setLoading(true);
       const token = localStorage.getItem('token');
       const res = await axios.post('https://social-media-back-ho56.onrender.com/api/posts', { content }, {
         headers: {
@@ -47,8 +45,6 @@ const Post = () => {
       setContent('');
     } catch (err) {
       console.error(err);
-    }finally {
-      setLoading(false); // Always clear loading state after request completes
     }
   };
 
