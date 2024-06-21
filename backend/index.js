@@ -13,8 +13,8 @@ import { jwtAuthMiddleware,generateToken } from "./jwt.js";
  app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
  app.use(cors(
    {
-      origin:["https://social-iwj0.onrender.com","http://localhost:3000"],
-      methods:["POST", "GET","DELETE","PUT"],
+      origin:["https://social-iwj0.onrender.com"],
+      methods: ["GET","POST","DELETE","PUT"],
       credentials:true,
       allowedHeaders: 'Authorization,Content-Type'
    }
