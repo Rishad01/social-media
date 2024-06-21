@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import postRoutes from './posts.js';
+import Post from './models/Post.js';
 import crypto from 'crypto';
 import jwt from "jsonwebtoken";
 import { jwtAuthMiddleware,generateToken } from "./jwt.js";
@@ -182,6 +183,19 @@ try{
       res.status(500).json({ message: 'Server Error' });
     }
   });
+
+// Get all posts
+app.get('/bring',jwtAuthMiddleware, async (req, res) => {
+  try {
+    const posts = await Post.find().populate('authorId', 'username').populate('likes', 'username').populate('comments.userId', 'username');
+    res.json(
+      {userId: req.user.id,
+      username: req.user.username,
+      posts});
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching posts', error: err.message });
+  }
+});
 
  app.use('/api/posts', postRoutes);
 
