@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Button } from 'react-bootstrap'; // Import Form and Button from react-bootstrap
 
-const Post = () => {
+function Post(){
   const [posts, setPosts] = useState([]);
   const [content, setContent] = useState('');
   const [updateContent, setUpdateContent] = useState('');
@@ -10,10 +10,10 @@ const Post = () => {
   const [commentContent, setCommentContent] = useState('');
   const [userId, setUserId] = useState('');
 
-  useEffect(() => {
+  
   const fetchPosts = async () => {
+    const token = localStorage.getItem('token');
     try {
-      const token = localStorage.getItem('token');
       const res = await axios.get('https://social-media-back-ho56.onrender.com/api/posts', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -27,6 +27,7 @@ const Post = () => {
       console.error(err);
     }
   };
+  useEffect(() => {
     fetchPosts();
     }, []);
 
