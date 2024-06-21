@@ -11,9 +11,6 @@ const Post = () => {
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
-
   const fetchPosts = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -30,6 +27,8 @@ const Post = () => {
       console.error(err);
     }
   };
+    fetchPosts();
+    }, []);
 
   const createPost = async () => {
     
