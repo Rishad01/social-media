@@ -8,6 +8,7 @@ import crypto from 'crypto';
 import jwt from "jsonwebtoken";
 import { jwtAuthMiddleware,generateToken } from "./jwt.js";
  const app=express(); 
+ const port=process.env.PORT || 5000;
  app.use(express.json());
  app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
  app.use(cors(
@@ -133,7 +134,7 @@ try{
         subject: 'Password Reset Request',
         text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n`
           + `Please click on the following link, or paste this into your browser to complete the process:\n\n`
-          + `http://${req.headers.host}/reset/${resetToken}\n\n`
+          + `http://localhost:3000/reset/${resetToken}\n\n`
           + `If you did not request this, please ignore this email and your password will remain unchanged.\n`
       };
   
@@ -182,6 +183,6 @@ try{
 
  app.use('/api/posts', postRoutes);
 
- app.listen(5000,()=>{
+ app.listen(port,()=>{
     console.log('listening...');
   });
