@@ -20,7 +20,7 @@ import { jwtAuthMiddleware,generateToken } from "./jwt.js";
  ));
 
 try{
- mongoose.connect('mongodb://localhost:27017/socialmedia')
+ mongoose.connect('mongodb+srv://rishadhusainrizvi786:WqC5ILRgwFLi5Rvz@cluster0.caujlwq.mongodb.net/socialmedia')
  console.log('DB connected...');
 }catch(err)
 {
