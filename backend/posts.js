@@ -24,7 +24,7 @@ router.post('/', jwtAuthMiddleware, async (req, res) => {
 });
 
 // Get all posts
-router.get('/',jwtAuthMiddleware, async (req, res) => {
+router.get('/bring',jwtAuthMiddleware, async (req, res) => {
   try {
     const posts = await Post.find().populate('authorId', 'username').populate('likes', 'username').populate('comments.userId', 'username');
     res.json(
