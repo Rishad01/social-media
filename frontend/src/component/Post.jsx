@@ -14,7 +14,7 @@ function Post(){
   const fetchPosts = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('https://social-media-back-ho56.onrender.com/bring', {
+      const res = await axios.get('social-media-three-puce.vercel.app/bring', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ function Post(){
   const createPost = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.post('https://social-media-back-ho56.onrender.com/create/api/posts', { content }, {
+      const res = await axios.post('social-media-three-puce.vercel.app/create/api/posts', { content }, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ function Post(){
     try {
       const token = localStorage.getItem('token');
       console.log(token);
-      await axios.delete(`https://social-media-back-ho56.onrender.com/api/posts/${id}`, {
+      await axios.delete(`social-media-three-puce.vercel.app/api/posts/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ function Post(){
     try {
       const token = localStorage.getItem('token');
       const updatedPost = { content: updateContent };
-      const res = await axios.put(`https://social-media-back-ho56.onrender.com/api/posts/${postIdToUpdate}`, updatedPost, {
+      const res = await axios.put(`social-media-three-puce.vercel.app/api/posts/${postIdToUpdate}`, updatedPost, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ function Post(){
   const toggleLike = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`https://social-media-back-ho56.onrender.com/api/posts/${id}/like`, {}, {
+      await axios.post(`social-media-three-puce.vercel.app/api/posts/${id}/like`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ function Post(){
   const handleComment = async (id, commentContent) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`https://social-media-back-ho56.onrender.com/api/posts/${id}/comment`, { text: commentContent }, {
+      await axios.post(`social-media-three-puce.vercel.app/api/posts/${id}/comment`, { text: commentContent }, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
