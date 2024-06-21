@@ -18,7 +18,7 @@ const Post = () => {
   const fetchPosts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/posts', {
+      const res = await axios.get(`${window.location.origin}/api/posts`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ const Post = () => {
   const createPost = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('http://localhost:5000/api/posts', { content }, {
+      const res = await axios.post(`${window.location.origin}/api/posts`, { content }, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ const Post = () => {
   const deletePost = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/posts/${id}`, {
+      await axios.delete(`${window.location.origin}/api/posts/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ const Post = () => {
     try {
       const token = localStorage.getItem('token');
       const updatedPost = { content: updateContent };
-      const res = await axios.put(`http://localhost:5000/api/posts/${postIdToUpdate}`, updatedPost, {
+      const res = await axios.put(`${window.location.origin}/api/posts/${postIdToUpdate}`, updatedPost, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const Post = () => {
   const toggleLike = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:5000/api/posts/${id}/like`, {}, {
+      await axios.post(`${window.location.origin}/api/posts/${id}/like`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ const Post = () => {
   const handleComment = async (id, commentContent) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:5000/api/posts/${id}/comment`, { text: commentContent }, {
+      await axios.post(`${window.location.origin}/api/posts/${id}/comment`, { text: commentContent }, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
