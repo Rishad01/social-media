@@ -47,7 +47,10 @@ try{
       const check=await User.findOne({email:email});
       if(check)
         {
-            res.json({ message: 'User already registered' });
+            console.log(user._id);
+            const userpayload={id:check._id,username:check.username}
+            const token=generateToken(userpayload);
+            res.json({ message: 'User already registered',token:token});
         }
         else{
               const user=await User.create({
