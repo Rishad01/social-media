@@ -197,7 +197,7 @@ app.get('/bring',jwtAuthMiddleware, async (req, res) => {
   }
 });
 
- app.use('/api/posts', postRoutes);
+ app.use('/api/posted', postRoutes);
 
  app.listen(port,()=>{
     console.log('listening...');
