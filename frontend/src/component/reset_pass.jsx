@@ -14,7 +14,7 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`https://social-media-back-ho56.onrender.com/reset_password/${token}`, { newPassword });
+      const res = await axios.post(`social-media-three-puce.vercel.app/reset_password/${token}`, { newPassword });
       setMessage(res.data.message);
       setError('');
       setTimeout(() => {
