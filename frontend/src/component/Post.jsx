@@ -122,7 +122,7 @@ function Post(){
   return (
     <div>
       <h1>Posts</h1>
-      <FormclassName="mb-4">
+      <Form className="mb-4">
         <Form.Group controlId="formPostContent">
           <Form.Control
             as="textarea"
@@ -132,7 +132,7 @@ function Post(){
             onChange={(e) => setContent(e.target.value)}
           />
         </Form.Group>
-        <Button  onClick={()=>createPost} variant="primary" type="submit">
+        <Button  onClick={createPost} variant="primary">
           Post
         </Button>
       </Form>
