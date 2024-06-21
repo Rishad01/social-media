@@ -32,8 +32,8 @@ const Post = () => {
     }
   };
 
-  const createPost = async (event) => {
-    event.preventDefault();
+  const createPost = async () => {
+    
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
