@@ -32,10 +32,9 @@ function Post(){
     }, []);
 
   const createPost = async () => {
-    
+    const token = localStorage.getItem('token');
     try {
-      const token = localStorage.getItem('token');
-      const res = await axios.post('https://social-media-back-ho56.onrender.com/api/posted', { content }, {
+      const res = await axios.post('https://social-media-back-ho56.onrender.com/create/api/posted', { content }, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
