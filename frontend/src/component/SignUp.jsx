@@ -16,7 +16,7 @@ function SignUp() {
     event.preventDefault();
     console.log('signup');
     try {
-      const response = await axios.post(`https://social-media-back-ho56.onrender.com/register`, values);
+      const response = await axios.post(`social-media-three-puce.vercel.app/register`, values);
         localStorage.setItem('token', response.data.token);
         console.log(response);
         navigate('/posts');
