@@ -91,7 +91,7 @@ const Post = () => {
   const toggleLike = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(https://social-media-1rvb.onrender.com/api/posts/${id}/like`, {}, {
+      await axios.post(`https://social-media-1rvb.onrender.com/api/posts/${id}/like`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
