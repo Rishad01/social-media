@@ -17,10 +17,8 @@ function SignUp() {
     console.log('signup');
     try {
       const response = await axios.post(`https://social-media-back-ho56.onrender.com/register`, values);
-      alert(response.data.message);
-      
         localStorage.setItem('token', response.data.token);
-        console.log(localStorage.getItem('token'));
+        console.log(response);
         navigate('/posts');
       
     } catch (error) {
