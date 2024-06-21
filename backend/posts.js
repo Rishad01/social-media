@@ -5,7 +5,7 @@ import { jwtAuthMiddleware,generateToken } from "./jwt.js";
 const router = express.Router();
 
 // Create a post
-router.post('/', jwtAuthMiddleware, async (req, res) => {
+router.post('/create', jwtAuthMiddleware, async (req, res) => {
   const { content } = req.body;
 
   try {
