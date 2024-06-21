@@ -23,18 +23,7 @@ router.post('/', jwtAuthMiddleware, async (req, res) => {
   }
 });
 
-// Get all posts
-router.get('/bring',jwtAuthMiddleware, async (req, res) => {
-  try {
-    const posts = await Post.find().populate('authorId', 'username').populate('likes', 'username').populate('comments.userId', 'username');
-    res.json(
-      {userId: req.user.id,
-      username: req.user.username,
-      posts});
-  } catch (err) {
-    res.status(500).json({ message: 'Error fetching posts', error: err.message });
-  }
-});
+
 
 // Get a single post
 router.get('/:id', async (req, res) => {
