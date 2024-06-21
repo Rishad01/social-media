@@ -12,7 +12,7 @@ import { jwtAuthMiddleware,generateToken } from "./jwt.js";
  app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
  app.use(cors(
    {
-      origin:["https://social-media-nine-pink.vercel.app/"],
+      origin:["http://localhost:3000"],
       methods:["POST", "GET","DELETE","PUT"],
       credentials:true,
       allowedHeaders: 'Authorization,Content-Type'
