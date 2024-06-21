@@ -17,7 +17,7 @@ const Post = () => {
   const fetchPosts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('https://social-media-1rvb.onrender.com/api/posts', {
+      const res = await axios.get('https://social-media-back-ho56.onrender.com/api/posts', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ const Post = () => {
   const createPost = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('https://social-media-1rvb.onrender.com/api/posts', { content }, {
+      const res = await axios.post('https://social-media-back-ho56.onrender.com/api/posts', { content }, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ const Post = () => {
   const deletePost = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`https://social-media-1rvb.onrender.com/api/posts/${id}`, {
+      await axios.delete(`https://social-media-back-ho56.onrender.com/api/posts/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ const Post = () => {
     try {
       const token = localStorage.getItem('token');
       const updatedPost = { content: updateContent };
-      const res = await axios.put(`https://social-media-1rvb.onrender.com/api/posts/${postIdToUpdate}`, updatedPost, {
+      const res = await axios.put(`https://social-media-back-ho56.onrender.com/api/posts/${postIdToUpdate}`, updatedPost, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const Post = () => {
   const toggleLike = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`https://social-media-1rvb.onrender.com/api/posts/${id}/like`, {}, {
+      await axios.post(`https://social-media-back-ho56.onrender.com/api/posts/${id}/like`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ const Post = () => {
   const handleComment = async (id, commentContent) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`https://social-media-1rvb.onrender.com/api/posts/${id}/comment`, { text: commentContent }, {
+      await axios.post(`https://social-media-back-ho56.onrender.com/api/posts/${id}/comment`, { text: commentContent }, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'

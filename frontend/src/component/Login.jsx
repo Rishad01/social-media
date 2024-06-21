@@ -15,7 +15,7 @@ function Login() {
     event.preventDefault();
     console.log('login');
     try {
-      const response = await axios.post(`https://social-media-1rvb.onrender.com/login`, values);
+      const response = await axios.post(`https://social-media-back-ho56.onrender.com/login`, values);
       console.log(response);
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
