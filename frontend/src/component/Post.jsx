@@ -31,7 +31,8 @@ const Post = () => {
     }
   };
 
-  const createPost = async () => {
+  const createPost = async (event) => {
+    event.preventDefault();
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(`http://localhost:5000/api/posts`, { content }, {
@@ -48,6 +49,7 @@ const Post = () => {
   };
 
   const deletePost = async (id) => {
+    
     try {
       const token = localStorage.getItem('token');
       await axios.delete(`http://localhost:5000/api/posts/${id}`, {
@@ -67,7 +69,8 @@ const Post = () => {
     setUpdateContent(post.content);
   };
 
-  const updatePost = async () => {
+  const updatePost = async (event) => {
+    event.preventDefault();
     try {
       const token = localStorage.getItem('token');
       const updatedPost = { content: updateContent };
