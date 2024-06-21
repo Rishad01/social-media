@@ -14,7 +14,7 @@ function Post(){
   const fetchPosts = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('https://social-media-back-ho56.onrender.com/api/posts', {
+      const res = await axios.get('https://social-media-back-ho56.onrender.com/bring/api/posts', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
