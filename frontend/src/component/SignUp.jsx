@@ -1,55 +1,94 @@
 import React from "react";
 import axios from "axios";
-import {Form,Button} from "react-bootstrap";
+import { Form, Button, Container, Row, Col,Card} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-function SignUp()
-{
-  const navigate=useNavigate();
-    const[values,setValues]=React.useState({
-        email:'',
-        password:'',
-        username:''
-      });
-  
-      const handleSubmit=async (event)=>{
-        console.log('login');
-        event.preventDefault();
-        try {
-          const response = await axios.post('http://localhost:5000/register', values);
-          alert(response.data.message);
-        }
-        catch(error){
-          console.error(error);
-        }
-      }
-  
-      const handleChange=(event)=>{
-        setValues({...values,[event.target.name]:event.target.value});
-      }
-    return(
-      <div>
-             <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" name="email" onChange={handleChange}/>
-                </Form.Group>
+import 'bootstrap/dist/css/bootstrap.min.css';  // Import Bootstrap CSS
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" name="password" onChange={handleChange}/>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" placeholder="Username" name="username" onChange={handleChange}/>
-                </Form.Group>
-                <Button variant="btn btn-dark" type="submit" onClick={handleSubmit}>
-                    Sign Up
-                </Button>
-              </Form>
+function SignUp() {
+  const navigate = useNavigate();
+  const [values, setValues] = React.useState({
+    email: '',
+    password: '',
+    username: ''
+  });
 
-              <a onClick={()=>navigate('/login')}>Already Registered?</a>
-        </div>
-    );
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log('signup');
+    try {
+      const response = await axios.post('http://localhost:5000/register', values);
+      alert(response.data.message);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        navigate('/posts');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
+
+  return (
+    <Container className="d-flex justify-content-center align-items-center vh-100">
+      <Row className="w-100">
+        <Col xs={12} md={6} lg={4} className="mx-auto">
+          
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center mb-4">Sign Up</Card.Title>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicUsername">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Button variant="dark" type="submit" className="w-100">
+              Sign Up
+            </Button>
+          </Form>
+          <div className="text-center mt-3">
+            <a href="#" onClick={() => navigate('/login')}>Already Registered? Login here</a>
+          </div>             
+            </Card.Body>
+            </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
 
 export default SignUp;

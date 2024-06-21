@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Container, Row, Col, Form, Button, Card, Badge } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
   const [content, setContent] = useState('');
   const [updateContent, setUpdateContent] = useState('');
   const [postIdToUpdate, setPostIdToUpdate] = useState('');
-  const [commentContent,setCommentContent]= useState('');
-  const [userId,setUserId]= useState('');
+  const [commentContent, setCommentContent] = useState('');
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     fetchPosts();
@@ -15,13 +17,14 @@ const Post = () => {
 
   const fetchPosts = async () => {
     try {
-        const token=localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       const res = await axios.get('http://localhost:5000/api/posts', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
-        }});
-        setUserId(res.data.userId);
+        }
+      });
+      setUserId(res.data.userId);
       setPosts(res.data.posts);
     } catch (err) {
       console.error(err);
@@ -88,7 +91,7 @@ const Post = () => {
   const toggleLike = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:5000/api/posts/${id}/like`, {
+      await axios.post(`http://localhost:5000/api/posts/${id}/like`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -116,58 +119,80 @@ const Post = () => {
   };
 
   return (
-    <div>
-      <h1>Posts</h1>
-      <input 
-        type="text"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="What's on your mind?"
-      />
-      <button onClick={createPost}>Post</button>
-      <ul>
-        {posts.map(post => (
-          <li key={post._id}>
+    <Container className="py-4">
+      <h1 className="mb-4">Posts</h1>
+      <Form onSubmit={createPost} className="mb-4">
+        <Form.Group controlId="formPostContent">
+          <Form.Control
+            as="textarea"
+            rows={3}
+            placeholder="What's on your mind?"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Post
+        </Button>
+      </Form>
+
+      {posts.map(post => (
+        <Card key={post._id} className="mb-4">
+          <Card.Body>
             {post._id === postIdToUpdate ? (
               <div>
-                <input 
-                  type="text"
+                <Form.Control
+                  as="textarea"
+                  rows={3}
                   value={updateContent}
                   onChange={(e) => setUpdateContent(e.target.value)}
                 />
-                <button onClick={updatePost}>Update</button>
+                <Button variant="success" className="me-2" onClick={updatePost}>
+                  Update
+                </Button>
+                <Button variant="secondary" onClick={() => setPostIdToUpdate('')}>
+                  Cancel
+                </Button>
               </div>
             ) : (
               <div>
-                <p>{post.content}</p>
-                <button onClick={() => handleUpdateClick(post)}>Edit</button>
-                <button onClick={() => deletePost(post._id)}>Delete</button>
-                <button onClick={() => toggleLike(post._id)}>
-                {post.likes.includes(userId) ? 'Unlike' : 'Like'}
-                </button>
-                <p>Likes: {post.likes.length}</p>
-                <div>
-                  <input 
+                <Card.Text>{post.content}</Card.Text>
+                <Button variant="info" className="me-2" onClick={() => handleUpdateClick(post)}>
+                  Edit
+                </Button>
+                <Button variant="danger" className="me-2" onClick={() => deletePost(post._id)}>
+                  Delete
+                </Button>
+                <Button variant="primary" onClick={() => toggleLike(post._id)}>
+                  {post.likes.some(like => like._id === userId) ? 'Unlike' : 'Like'}
+                </Button>
+                <Badge bg="secondary" className="ms-2">{post.likes.length}</Badge>
+                <Form onSubmit={(e) => { e.preventDefault(); handleComment(post._id, commentContent); }}>
+                  <Form.Control
                     type="text"
                     placeholder="Add a comment..."
+                    className="mt-2"
+                    value={commentContent}
                     onChange={(e) => setCommentContent(e.target.value)}
                   />
-                  <button onClick={() => handleComment(post._id, commentContent)}>Comment</button>
-                </div>
-                <ul>
+                  <Button variant="primary" type="submit" className="mt-2">
+                    Comment
+                  </Button>
+                </Form>
+                <ul className="list-unstyled mt-3">
                   {post.comments.map(comment => (
                     <li key={comment._id}>
-                      <p>{comment.text}</p>
-                      <p>Comment by: {comment.username}</p>
+                      <Card.Text>{comment.text}</Card.Text>
+                      <Card.Text>Comment by: {comment.username}</Card.Text>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
-          </li>
-        ))}
-      </ul>
-    </div>
+          </Card.Body>
+        </Card>
+      ))}
+    </Container>
   );
 };
 

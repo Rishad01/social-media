@@ -6,7 +6,9 @@ import './index.css';
 import App from './App';
 import Login from './component/Login.jsx';
 import Post from './component/Post.jsx';
+import ForgotPassword from './component/forgot_pass.jsx';
 import reportWebVitals from './reportWebVitals';
+import ResetPassword from './component/reset_pass.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +18,8 @@ root.render(
     <Route path="/" element={<App />} />
     <Route path="/login" element={<Login />} />
     <Route path="/posts" element={<Post />} />
+    <Route path="/forgot_pass" element={<ForgotPassword />} />
+    <Route path="/reset/:token" element={<ResetPassword />} />
   </Routes>
   </BrowserRouter>
   </React.StrictMode>
