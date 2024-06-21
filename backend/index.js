@@ -14,7 +14,7 @@ import { jwtAuthMiddleware,generateToken } from "./jwt.js";
  app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
  app.use(cors(
    {
-      origin:["social-media-front-indol.vercel.app"],
+      origin:["https://social-media-front-indol.vercel.app"],
       methods: ["GET","POST","DELETE","PUT"],
       credentials:true,
       allowedHeaders: 'Authorization,Content-Type'
