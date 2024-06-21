@@ -50,6 +50,7 @@ function Post(){
   const deletePost = async (id) => {
     try {
       const token = localStorage.getItem('token');
+      console.log(token);
       await axios.delete(`https://social-media-back-ho56.onrender.com/api/posts/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
