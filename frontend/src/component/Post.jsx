@@ -35,7 +35,7 @@ function Post(){
     
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('https://social-media-back-ho56.onrender.com/api/post', { content }, {
+      const res = await axios.post('https://social-media-back-ho56.onrender.com/api/posted', { content }, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -132,7 +132,7 @@ function Post(){
             onChange={(e) => setContent(e.target.value)}
           />
         </Form.Group>
-        <Button  onClick={createPost} variant="primary" type="submit">
+        <Button  onClick={()=>createPost} variant="primary" type="submit">
           Post
         </Button>
       </Form>
