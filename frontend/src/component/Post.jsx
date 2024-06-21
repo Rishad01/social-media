@@ -31,7 +31,8 @@ const Post = () => {
     }
   };
 
-  const createPost = async () => {
+  const createPost = async (event) => {
+    event.preventDefault();
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post('https://social-media-back-ho56.onrender.com/api/posts', { content }, {
