@@ -137,7 +137,7 @@ try{
         subject: 'Password Reset Request',
         text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n`
           + `Please click on the following link, or paste this into your browser to complete the process:\n\n`
-          + `http://localhost:3000/reset/${resetToken}\n\n`
+          + `https://social-iwj0.onrender.com/reset/${resetToken}\n\n`
           + `If you did not request this, please ignore this email and your password will remain unchanged.\n`
       };
   
