@@ -11,7 +11,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`social-media-three-puce.vercel.app/forgot_password`, { email });
+      const res = await axios.post(`https://social-media-back-ho56.onrender.com/forgot_password`, { email });
       setMessage(res.data.message);
       setError('');
     } catch (err) {
